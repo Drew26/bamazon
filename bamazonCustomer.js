@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "Layla2018!",
+    password: "",
     database: "bamazon_db"
 });
 
@@ -47,7 +47,12 @@ function loadProducts(){
 //function to prompt customer for item id
 function idPrompt(){
     //use inquirer to prompt customer
-
+    inquirer
+    .prompt({
+      name: "productID",
+      type: "input",
+      message: "Enter the ID number of the product",
+    })
     //if product exists in database then run quantity function
     //else let customer know item is not in database, then rerun loadProducts function
 }
