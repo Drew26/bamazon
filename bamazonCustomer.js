@@ -108,14 +108,6 @@ function quantity(product) {
         });
 }
 
-// //function to update database
-//  function updateTable(value, productID) {
-//      if (value.quantity = productID.stock_quantity) {
-//         var totalCost = productID.price * quantity;
-//         console.log("The total cost for " + quantity + " " + productID.product_name + " is " + totalCost + " Thank you!");
-//         connection.query("UPDATE products SET stock_quantity = stock_quantity - " + quantity + "WHERE item_id = " + productID);
-//     }
-//  }
 
 //function to make purchase
 function makePurchase(product, quantity) {
@@ -128,7 +120,7 @@ function makePurchase(product, quantity) {
         if (err) throw err;
        // console.table(res);
        var price = product.price
-        //inform user that purchase was successful and rerun loadProducts function
+        //inform user that purchase was successful 
        var totalPrice = price * quantity
         console.log("Your purchase was successful! Your total cost is $" + totalPrice + " Thanks for shopping!");
         console.log("Have a nice day!")
