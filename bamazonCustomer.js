@@ -38,6 +38,7 @@ connection.connect(function (err) {
 //print results to console
 function loadProducts() {
     //mysql query to read products in database
+    console.log("\n=====================================================\n")
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
         console.table(res)
@@ -94,39 +95,44 @@ function quantity(product) {
             }
         }).then(function (value) {
             //create var with parseInt to minimize bugs
-            if (value.quantity > product.stock_quantity) {
+            var quantity = parseInt(value.quantity);
+            if (quantity > product.stock_quantity) {
                 //if not enough inventory then tell user and rerun loadProducts function
                 console.log("Sorry! there is not enough inventory to fulfill this order. Please try again.");
                 //else, run makePurchase function
                 loadProducts();
             }
-            else {
-                makePurchase();
+            else  {
+                makePurchase(product, quantity);
             }
         });
 }
 
-//function to update database
-// function updateTable(value, productID) {
-//     if (value.quantity = productID.stock_quantity) {
+// //function to update database
+//  function updateTable(value, productID) {
+//      if (value.quantity = productID.stock_quantity) {
 //         var totalCost = productID.price * quantity;
 //         console.log("The total cost for " + quantity + " " + productID.product_name + " is " + totalCost + " Thank you!");
 //         connection.query("UPDATE products SET stock_quantity = stock_quantity - " + quantity + "WHERE item_id = " + productID);
 //     }
-// }
+//  }
 
 //function to make purchase
-function makePurchase() {
+function makePurchase(product, quantity) {
     //run sql query to update products table. Find out how to update query
 
-    connection.query("SELECT * FROM products", function (err, res) {
+    connection.query(
+        "UPDATE products SET stock_quantity = stock_quantity - ? WHERE id = ?",
+        [quantity, product.id],
+        function (err, res) {
         if (err) throw err;
-        console.table(res);
+       // console.table(res);
+       var price = product.price
         //inform user that purchase was successful and rerun loadProducts function
-        console.log("Your purchase was successful! Thanks for shopping!");
-        
-        // 	updateMySql();
-        
+       var totalPrice = price * quantity
+        console.log("Your purchase was successful! Your total cost is $" + totalPrice + " Thanks for shopping!");
+        console.log("Have a nice day!")
+        connection.end();
     })
 }
 

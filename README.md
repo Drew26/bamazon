@@ -40,13 +40,8 @@ If not, the app will say "Sorry! there is not enough inventory to fulfill this o
 
 ![notEnough](bamz3.jpg?raw=true "notEnough")
 
-However, if your store does have enough of the product, you should fulfill the customer's order.
-
+However, if your store does have enough of the product, you should fulfill the customer's order and show them the total price. 
 
 ![makePurchase](bamz4.jpg?raw=true "makePurchase")
 
-
-Issues: The following functionality is not complete.
-
-This means updating the SQL database to reflect the remaining quantity.
-Once the update goes through, show the customer the total cost of their purchase.
+A purchase will update the SQL database to reflect the remaining quantity.
